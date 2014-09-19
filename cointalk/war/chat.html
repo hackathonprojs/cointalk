@@ -91,40 +91,37 @@ function create_user(firstname, lastname, unique_id_given) {
     Moxtra.setup(init_options);
 }
 
-    function get_token(firstname, lastname, unique_id, unique_id2) {
-    	var unique_ids = [unique_id, unique_id2];
-    	unique_ids.sort(function(a, b){
-    	    if(a.firstname < b.firstname) return -1;
-    	    if(a.firstname > b.firstname) return 1;
-    	    return 0;
-    	});
-    	
-        var init_options = {
-            uniqueid: unique_id,
-            firstname: firstname,
-            lastname: lastname,
-            timestamp: timestamp,
-            signature: signature,
-            get_accesstoken: function(result) {
-                console.log("access_token: " + result.access_token + " expires in: " + result.expires_in);
-                //startChatUserId(result.access_token, unique_ids);
-                //startChatBinderName(result.access_token, deriveBinderName(unique_id, unique_id2));
-                startChatBinderId(result.access_token, default_binder_id, unique_ids);
-            },
-            error: function(result) {
-                console.log("error code: " + result.error_code + " message: " + result.error_message);
-            }
-        };
-        Moxtra.setup(init_options);
-    }
+function get_token(firstname, lastname, unique_id, unique_id2) {
+	var unique_ids = [unique_id, unique_id2];
+	unique_ids.sort(function(a, b){
+	    if(a.firstname < b.firstname) return -1;
+	    if(a.firstname > b.firstname) return 1;
+	    return 0;
+	});
+	
+    var init_options = {
+        uniqueid: unique_id,
+        firstname: firstname,
+        lastname: lastname,
+        timestamp: timestamp,
+        signature: signature,
+        get_accesstoken: function(result) {
+            console.log("access_token: " + result.access_token + " expires in: " + result.expires_in);
+            //startChatUserId(result.access_token, unique_ids);
+            //startChatBinderName(result.access_token, deriveBinderName(unique_id, unique_id2));
+            startChatBinderId(result.access_token, default_binder_id, unique_ids);
+        },
+        error: function(result) {
+            console.log("error code: " + result.error_code + " message: " + result.error_message);
+        }
+    };
+    Moxtra.setup(init_options);
+}
 
 function deriveBinderName(addr1, addr2) {
 	return "v1" + addr1 + "_" + addr2;
 }
-</script>
 
-
-<script type="text/javascript">
 /** start chat using binder_name */
 function startChatBinderId(access_token, binder_id, unique_ids) {
 	var unique_id_value = unique_ids.join(",");
@@ -193,9 +190,7 @@ function startChatBinderName(access_token, binder_name) {
 	Moxtra.chat(options);	
 }
 
-</script>
 
-<script type="text/javascript">
 /** start chat using user id (unique_id)
  * unique_ids - array of string ids
  */
@@ -234,9 +229,8 @@ function startChatUserId(token, unique_ids) {
 	};
 	Moxtra.chat(options);
 }
-</script>
 
-<script>
+
 //create_user(u2, "", u2); // create second user in case user is not created.
 get_token(u1, "", unique_id, u2);
 
