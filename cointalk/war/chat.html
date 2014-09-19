@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <title>Chat</title>
 
-<script type="text/javascript" src="https://www.moxtra.com/api/js/moxtra-latest.js" id="moxtrajs" data-client-id="ie9_yqmZfG8"></script>
-
 <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+
+
+<script type="text/javascript" src="https://www.moxtra.com/api/js/moxtra-latest.js" id="moxtrajs" data-client-id="ie9_yqmZfG8"></script>
 
 <!-- Include External JavaScript Libraries for moxtra -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -14,7 +15,9 @@
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
 
 
+
 <script type="text/javascript">
+/** get url parameter */
 function gup( name )
 {
   name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -29,6 +32,8 @@ function gup( name )
 
 var u1 = gup("u1");
 var u2 = gup("u2");
+
+
 
 
 
@@ -172,19 +177,19 @@ function startChatBinderName(access_token, binder_name) {
 	        console.log("Chat started session Id: " + event.session_id);
 	    },
 	    start_meet: function(event) {
-	        alert("Meet started session key: " + event.session_key + " session id: " + event.session_id);
+	        console.log("Meet started session key: " + event.session_key + " session id: " + event.session_id);
 	    },
 	    end_meet: function(event) {
-	        alert("Meet end event");
+	        console.log("Meet end event");
 	    },
 	    invite_member: function(event) {
-	        alert("Invite member into binder Id: " + event.binder_id);
+	        console.log("Invite member into binder Id: " + event.binder_id);
 	    },
 	    request_note: function(event) {
-	        alert("Note start request");
+	        console.log("Note start request");
 	    },
 	    error: function(event) {
-	        alert("Chat error code: " + event.error_code + " error message: " + event.error_message);
+	    	console.log("Chat error code: " + event.error_code + " error message: " + event.error_message);
 	    }
 	};
 	Moxtra.chat(options);	
@@ -236,6 +241,14 @@ get_token(u1, "", unique_id, u2);
 
 $(document).ready(function() {
 	//startChatUserId();
+	
+	$("#u1Addr").text(u1);
+	$("#u2Addr").text(u2);
+
+	var u1AddrHref = "http://blockchain.info/address/{addr}".replace("{addr}", u1);
+	var u2AddrHref = "http://blockchain.info/address/{addr}".replace("{addr}", u2);
+	$("#u1Addr").attr("href", u1AddrHref);
+	$("#u2Addr").attr("href", u2AddrHref);
 });
 </script>
 
@@ -333,7 +346,7 @@ margin-right: auto;
 <div id="userContainer">
 	<div class="user-container">
 		<img class="avatar user-container-item" src="img/avatar-single-100.png"/>
-		<h4 class="user-container-item"><a href="http://blockchain.info/address/1B5pwF9AiRVmQ2nUKt334Z3SdzMm5KMGUg">1B5pwF9AiRVmQ2nUKt334Z3SdzMm5KMGUg</a></h4>
+		<h4 class="user-container-item"><a id="u1Addr" href="http://blockchain.info/address/1B5pwF9AiRVmQ2nUKt334Z3SdzMm5KMGUg">1B5pwF9AiRVmQ2nUKt334Z3SdzMm5KMGUg</a></h4>
 		<h5 class="user-container-item" id="txtVerifiedU1">(Unverified)</h5>
 		<h5 class="user-container-item">(You)</h5>
 		<button class="add-button add-button-additional" onclick="javascript:onVerify()">Verify</button>
@@ -354,7 +367,7 @@ margin-right: auto;
 	</div>
 	<div class="user-container">
 		<img class="avatar user-container-item" src="img/avatar-single-100.png"/>
-		<h4 class="user-container-item"><a href="https://dogechain.info/address/DSHXM1rTQUZEoi7xT3NVdowUzHzKLGKD2U">DSHXM1rTQUZEoi7xT3NVdowUzHzKLGKD2U</a></h4>
+		<h4 class="user-container-item"><a id="u2Addr" href="https://dogechain.info/address/DSHXM1rTQUZEoi7xT3NVdowUzHzKLGKD2U">DSHXM1rTQUZEoi7xT3NVdowUzHzKLGKD2U</a></h4>
 		<h5 class="user-container-item">(Unverified)</h5>
 		<button class="add-button add-button-additional" onclick="javascript:onVerify()">Verify</button>
 		<button class="add-button add-button-additional">Nickname</button>
